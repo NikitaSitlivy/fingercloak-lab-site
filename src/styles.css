@@ -292,3 +292,12 @@ body::after {
 @media (prefers-reduced-motion: reduce) {
   body::before, .title-scan, .hero-scan { animation: none; }
 }
+/* values-колонки в KV: переносим длинные URL/строки внутри карточек */
+.kv > div:nth-child(2n) {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  min-width: 0;
+}
+
+/* на всякий случай: внутри .card ничего не протечёт наружу */
+.card { overflow: hidden; }
