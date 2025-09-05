@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Eterium / FingerCloak Lab</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 920px; margin: 40px auto; padding: 0 16px; }
+    pre { background:#0b1020; color:#e8f0ff; padding:16px; border-radius:12px; overflow:auto; }
+  </style>
+</head>
+<body>
+  <h1>FingerCloak Lab</h1>
+  <p>Быстрая проверка окружения + пинг API.</p>
+  <pre id="env">loading…</pre>
+  <pre id="api">api: …</pre>
+
+  <script>
+    (async () => {
+      const env = {
+        ua: navigator.userAgent,
+        uaData: navigator.userAgentData
+          ? await navigator.userAgentData.getHighEntropyValues?.(
+              ['architecture','bitness','platform','platformVersion','uaFullVersion','fullVersionList']
+            )
+          : null,
+        languages: navigator.languages,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        platform: navigator.platform,
+        hardwareConcurrency: navigator.hardwareConcurrency,
+      };
+      document.getElementById('env').textContent = JSON.stringify(env, null, 2);
+
+      try {
+        const r = await fetch('https://api.eterium.space/ping', {mode:'cors'});
+        document.getElementById('api').textContent = 'api: ' + JSON.stringify(await r.json(), null, 2);
+      } catch (e) {
+        document.getElementById('api').textContent = 'api: error ' + e;
+      }
+    })();
+  </script>
+</body>
+</html>
