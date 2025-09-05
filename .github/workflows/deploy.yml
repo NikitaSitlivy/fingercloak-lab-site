@@ -18,27 +18,37 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v3
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
           version: 9
 
-      - uses: actions/setup-node@v4
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      # Кладём корневой CNAME в dist, чтобы он точно оказался на Pages
+      - name: Include CNAME in artifact
+        run: |
+          if [ -f CNAME ]; then
+            cp CNAME dist/CNAME
+          fi
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          node-version: 20
-          cache: pnpm
-
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
-
-      # SPA-fallback, чтобы роуты работали на Pages
-      - name: Copy 404 for SPA
-        run: cp dist/index.html dist/404.html
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
+          path: ./dist
 
   deploy:
     needs: build
