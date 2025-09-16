@@ -1,0 +1,14 @@
+<!doctype html><meta charset="utf-8">
+<title>Redirecting…</title>
+<meta name="robots" content="noindex">
+<script>
+  (function () {
+    // если уже на hash, ничего не делаем
+    if (location.hash) return;
+    var p = location.pathname.replace(/^\//,''); // lab, docs/x, ...
+    var q = location.search || '';
+    var h = location.hash || '';
+    location.replace('/#/' + p + q + h);
+  })();
+</script>
+<p>Redirecting…</p>

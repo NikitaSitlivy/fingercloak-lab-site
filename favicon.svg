@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <g fill="none" stroke="#38e8ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Shield -->
+    <path d="M32 6l20 8v14c0 14-9.5 26-20 30C21.5 54 12 42 12 28V14l20-8z"/>
+    <!-- F -->
+    <path d="M22 24v20M22 24h14M22 32h12"/>
+    <!-- C -->
+    <path d="M48 34c0 6-5 10-11 10-6 0-11-4-11-10s5-10 11-10c3 0 6 1 8 3"/>
+  </g>
+</svg>
